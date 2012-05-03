@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SlingShotTarget</string>
+    <string name="app_description">Drives the Sphero with the SlingShotView and activates a Qualcomm ImageTarget</string>
+
+    <string name="congrats_message">SCORE</string>
+</resources>

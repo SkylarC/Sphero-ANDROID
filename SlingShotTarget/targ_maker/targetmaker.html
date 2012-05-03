@@ -1,0 +1,204 @@
+
+
+<html>
+    <head>
+
+
+        <style type="text/css">
+            
+            body {
+                font-family: Helvetica, Arial, sans-serif;
+            }
+            
+            p {
+                background-color: #eee;
+                padding: 5px;
+            }
+            
+            a.button {
+                background-color: #def;
+                border: #000 solid 1px;
+                display: inline-block;
+                padding: 5px;
+                cursor: pointer;
+                margin: 5px;
+            }
+            
+            a.button.pressed {
+                background-color: #ace;
+                font-weight: bold;
+            }
+        </style>
+
+    </head>
+
+    <body>
+    
+        
+
+        <p>
+            Click once on the design to show it as a png so you can save it. <br />
+
+            <a class="button pressed" onclick="grayscaleButton(this);">GRAYSCALE</a>
+            <a class="button" onclick="extremeColorButton(this);">EXTREMES</a>
+            <a class="button pressed" onclick="colorDistanceButton(this);">COLOR DISTANCE</a> <br />
+            <a class="button" onclick="drawSpheros();" cursor="pointer">REDRAW</a>
+        </p>
+        
+        <canvas id="canvas" width="2048" height="1536" onclick="saveLogo(); return false;">
+
+            Loading ...
+        </canvas>
+
+        <script type="text/javascript">
+
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+
+            function saveLogo(){
+
+                window.location = canvas.toDataURL("image/png");
+            }
+
+            var settings = {
+                amount : 2000,
+
+                image_src: "logo_clear.png",
+
+                color : {
+                    specific: false,
+                    specific_color: {
+                        r : 255,
+                        g : 255,
+                        b : 255
+                    },
+                    grayscale : true,
+                    extremes : false,
+                    distance: true
+                },
+
+                size : {
+                    distance: true
+                }
+            }
+
+            function drawSpheros(){
+
+                var canvas_width  = canvas.width;
+                var canvas_height = canvas.height;
+                var image_width   = logo_clear.width * 0.6;
+                var image_height  = logo_clear.height * 0.6;
+
+                function rand(fl, cl){
+                    return Math.floor(Math.random()*cl) + fl;
+                };
+
+                context.fillStyle = "black";
+                context.fillRect(0,0,canvas_width, canvas_height);
+
+                var max = settings.amount;
+                for(var i=0;i<max;i++){
+
+                    var x_pad = (image_width);
+                    var y_pad = (image_width);
+                    var x = rand(-(x_pad), canvas_width + (x_pad));
+                    var y = rand(-(y_pad), canvas_height + (y_pad));
+
+                    var div = Math.random();
+                    var w = (image_width * div);
+                    var h = (image_height * div);
+
+                    var logo = logo_clear;
+
+                    function getColor(){
+
+                        var distance_factor = null;
+
+                        function applyDistance(color){
+                            if(settings.color.distance){
+                                distance_factor = (distance_factor == null)?(i / max): distance_factor;
+                                color = Math.floor(color * distance_factor);
+                            }
+
+                            return color;
+                        }
+
+                        if(settings.color.specific){
+                            var r = applyDistance(settings.color.specific_color.r);
+                            var g = applyDistance(settings.color.specific_color.g);
+                            var b = applyDistance(settings.color.specific_color.b);
+                            return "rgb("+r+", "+g+", "+b+")";
+                        }
+
+                        function genColor(){
+                            var c;
+                            if(settings.color.extremes){
+                                var n = rand(0, 2);
+                                c = (n==0)?255:0;
+                            } else {
+                                c = rand(0, 256);
+                            }
+
+                            return applyDistance(c);
+                        }
+
+                        if(settings.color.grayscale){
+                            var c = genColor();
+                            return "rgb("+c+", "+c+", "+c+")";
+                        }
+
+                        return "rgb("+genColor()+", "+genColor()+", "+genColor()+")";
+                    }
+
+                    var color = getColor();
+
+                    var radius = (w / 2) * 0.85;
+                    context.fillStyle = color;
+                    context.beginPath();
+                    context.arc(x + (w /2), y + (h / 2), radius, 0, Math.PI*2, false);
+                    context.fill();
+
+                    context.drawImage(logo, x, y, w, h);
+
+
+                }
+            }
+
+            function toggleButton(button, val){
+                if(val){
+                    button.className = "button pressed";
+                    button.style = "background-color: #ace;font-weight: bold;";
+                }else{
+                    button.className = "button";
+                }
+            }
+            
+            function grayscaleButton(button){
+                settings.color.grayscale = !settings.color.grayscale;
+                toggleButton(button, settings.color.grayscale);
+            }
+
+            function extremeColorButton(button){
+                settings.color.extremes = !settings.color.extremes;
+                toggleButton(button, settings.color.extremes);
+            }
+
+            function colorDistanceButton(button){
+                settings.color.distance = !settings.color.distance;
+                toggleButton(button, settings.color.distance);
+            }
+            
+
+            var logo_clear = new Image();
+
+            logo_clear.onload = drawSpheros;
+
+            logo_clear.src= settings.image_src;
+            
+
+
+        </script>
+
+    </body>
+
+</html>

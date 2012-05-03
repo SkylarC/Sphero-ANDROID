@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/rays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/congrats_rays"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/congrats_stars"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/CongratsMessage"
+        android:text="@string/congrats_message"
+        android:textColorHighlight="#ff000000"
+        android:background="@drawable/congrats_paper"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:visibility="invisible"
+        />
+
+</merge>

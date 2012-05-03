@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<QCARConfig xsi:noNamespaceSchemaLocation="qcar_config.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Tracking>
+
+        <ImageTarget name="Blue1" size="247 185.25">
+            <VirtualButton name="goal_1_1" rectangle="-100 65 -50 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_1_2" rectangle="-100 20 -50 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_1_3" rectangle="-100 -25 -50 -65" sensitivity="MEDIUM" enabled="true" />
+
+            <VirtualButton name="goal_2_1" rectangle="-50 65 0 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_2_2" rectangle="-50 20 0 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_2_3" rectangle="-50 -25 0 -65" sensitivity="MEDIUM" enabled="true" />
+
+            <VirtualButton name="goal_3_1" rectangle="0 65 50 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_3_2" rectangle="0 20 50 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_3_3" rectangle="0 -25 50 -65" sensitivity="MEDIUM" enabled="true" />
+
+            <VirtualButton name="goal_4_1" rectangle="50 65 100 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_4_2" rectangle="50 20 100 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_4_3" rectangle="50 -25 100 -65" sensitivity="MEDIUM" enabled="true" />
+        </ImageTarget>
+
+        <ImageTarget name="chips" size="247 172.899994">
+            <VirtualButton name="goal_1_1" rectangle="-100 65 -50 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_1_2" rectangle="-100 20 -50 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_1_3" rectangle="-100 -25 -50 -65" sensitivity="MEDIUM" enabled="true" />
+
+            <VirtualButton name="goal_2_1" rectangle="-50 65 0 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_2_2" rectangle="-50 20 0 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_2_3" rectangle="-50 -25 0 -65" sensitivity="MEDIUM" enabled="true" />
+
+            <VirtualButton name="goal_3_1" rectangle="0 65 50 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_3_2" rectangle="0 20 50 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_3_3" rectangle="0 -25 50 -65" sensitivity="MEDIUM" enabled="true" />
+
+            <VirtualButton name="goal_4_1" rectangle="50 65 100 25" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_4_2" rectangle="50 20 100 -20" sensitivity="MEDIUM" enabled="true" />
+            <VirtualButton name="goal_4_3" rectangle="50 -25 100 -65" sensitivity="MEDIUM" enabled="true" />
+        </ImageTarget>
+        <ImageTarget name="stones" size="247 172.899994"/>
+    </Tracking>
+</QCARConfig>
