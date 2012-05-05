@@ -5,20 +5,21 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-//import android.os.Handler;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-//import android.widget.ImageButton;
+import android.widget.ImageButton;
 import orbotix.macro.MacroObject;
 import orbotix.macro.MacroObject.MacroObjectMode;
 import orbotix.robot.app.StartupActivity;
 import orbotix.robot.base.AbortMacroCommand;
 import orbotix.robot.base.RGBLEDOutputCommand;
 import orbotix.robot.base.Robot;
-//import orbotix.robot.base.RobotControl;
+import orbotix.robot.base.RobotControl;
 import orbotix.robot.base.RobotProvider;
 import orbotix.robot.base.StabilizationCommand;
-//import com.orbotix.sample.helloworld.FileManager;
+
+import com.orbotix.sample.helloworld.FileManager;
 import com.orbotix.sample.helloworld.R;
 
 /**
@@ -43,12 +44,7 @@ public class HelloWorldActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
    
-        
-        
-        
-        //Normal Macro
-        //Smaller macros can be used with Normal Marco
-    	Button macrobutton1 = (Button) findViewById(R.id.button1);  
+    	ImageButton macrobutton1 = (ImageButton) findViewById(R.id.button1);  
     	macrobutton1.setOnClickListener(new View.OnClickListener() { 
     		
     	    public void onClick(View v) {  
@@ -61,7 +57,7 @@ public class HelloWorldActivity extends Activity
                 	FileManager files= new FileManager();
                     MacroObject macro= null;
                     try {
-						 macro = files.getMacro(v.getContext(), "dance1.sphero");
+						 macro = files.getMacro(v.getContext(), "colorm.sphero");
 						 macro.setMode(MacroObjectMode.Normal);
 	                     macro.setRobot(mRobot);
 	                     macro.playMacro(); 
@@ -74,9 +70,8 @@ public class HelloWorldActivity extends Activity
     	    }  
     	});
     
-    	//Chunky Macros:
-    	//Chunky Macro are large macros files 
-    	Button macrobutton2 = (Button) findViewById(R.id.button2);  
+    	
+    	ImageButton macrobutton2 = (ImageButton) findViewById(R.id.button1);  
     	macrobutton2.setOnClickListener(new View.OnClickListener() { 
     		
     	    public void onClick(View v) {  
@@ -89,8 +84,8 @@ public class HelloWorldActivity extends Activity
                 	FileManager files= new FileManager();
                     MacroObject macro= null;
                     try {
-						 macro = files.getMacro(v.getContext(), "bigdance.sphero");
-						 macro.setMode(MacroObjectMode.Chunky);
+						 macro = files.getMacro(v.getContext(), "colorm.sphero");
+						 macro.setMode(MacroObjectMode.Normal);
 	                     macro.setRobot(mRobot);
 	                     macro.playMacro(); 
 					} catch (IOException e) {
@@ -102,14 +97,14 @@ public class HelloWorldActivity extends Activity
     	    }  
     	});
     	
-    	//Abort Macro Commands:
-    	Button stopbutton = (Button) findViewById(R.id.button3);  
+    	
+    	ImageButton stopbutton = (ImageButton) findViewById(R.id.button1);  
     	stopbutton.setOnClickListener(new View.OnClickListener() { 
     		
     	    public void onClick(View v) {  
-    	        AbortMacroCommand.sendCommand(mRobot);//abort command
-    	        StabilizationCommand.sendCommand(mRobot, true); //turn on stabilization
-    	        RGBLEDOutputCommand.sendCommand(mRobot, 255, 255, 255);//make Sphero White
+    	        AbortMacroCommand.sendCommand(mRobot);
+    	        StabilizationCommand.sendCommand(mRobot, true);
+    	        RGBLEDOutputCommand.sendCommand(mRobot, 255, 255, 255);
     	    }  
     	});
 
@@ -139,6 +134,8 @@ public class HelloWorldActivity extends Activity
                 mRobot = RobotProvider.getDefaultProvider().findRobot(robot_id);
             }
             
+            //Start blinking
+            blink(false);
         }
     }
 
@@ -152,5 +149,28 @@ public class HelloWorldActivity extends Activity
         RobotProvider.getDefaultProvider().removeAllControls();
     }
 
+    /**
+     * Causes the robot to blink once every second.
+     * @param lit
+     */
+    private void blink(final boolean lit){
+        
+        if(mRobot != null){
+            
+            //If not lit, send command to show blue light, or else, send command to show no light
+            if(lit){
+                RGBLEDOutputCommand.sendCommand(mRobot, 0, 0, 0);
+            }else{
+                RGBLEDOutputCommand.sendCommand(mRobot, 0, 0, 255);
+            }
+            
+            //Send delayed message on a handler to run blink again
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    blink(!lit);
+                }
+            }, 1000);
+        }
     }
-
+}

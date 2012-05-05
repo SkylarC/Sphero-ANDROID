@@ -21,8 +21,7 @@
         android:layout_alignRight="@+id/button1"
         android:layout_below="@+id/button1"
         android:layout_marginTop="100dp"
-        android:text="Macro 2" 
-        android:layout_centerHorizontal="true"/>
+        android:text="Macro 2" android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/button3"
